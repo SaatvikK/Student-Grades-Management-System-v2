@@ -1,4 +1,4 @@
-package main
+package cliver
 
 import (
 	"bufio"
@@ -49,10 +49,13 @@ func cmdHandler(cmd string, reader *bufio.Reader) {
 
 	} else if strings.Compare("seestudent", cmd) == 0 {
 		seeStudentCmd(reader)
+
+	} else if strings.Compare("exit", cmd) == 0 {
+		os.Exit(1)
 	}
 }
 
-func main() {
+func CmdInput() {
 	fmt.Println("Welcome to the SGMS v1!")
 	fmt.Println("Please type 'help' to get a list of commands!")
 	reader := bufio.NewReader(os.Stdin)

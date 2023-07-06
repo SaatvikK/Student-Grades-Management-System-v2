@@ -1,3 +1,3 @@
-module github.com/SaatvikK/Student-Grades-Management-System-v2
+module SGMSv2
 
 go 1.17
