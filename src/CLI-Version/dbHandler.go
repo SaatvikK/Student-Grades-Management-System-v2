@@ -2,9 +2,11 @@ package cliver
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
-
+	"strconv"
 	//"os"
 	//"reflect"
 	"strconv"
@@ -14,6 +16,8 @@ import (
 	//"net/http"
 )
 
+var dbPath string = "./database"
+
 func createDBIfNotExists(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return os.Mkdir(path, os.ModeDir)
@@ -22,7 +26,7 @@ func createDBIfNotExists(path string) error {
 }
 
 func createDBFolders(path string) error {
-	path = "./database" + path
+	path = dbPath + path
 	status := createDBIfNotExists(path)
 	if status != nil {
 		return status
@@ -30,4 +34,29 @@ func createDBFolders(path string) error {
 	return nil
 }
 
-func saveStudent()
+func saveStudent(student Student, collectionPath string) error {
+	studentJson, err := json.Marshal(student)
+	if err == nil {
+		return err
+	}
+
+	studentID := strconv.Itoa(student.Id)
+	err = ioutil.WriteFile(dbPath+collectionPath+studentID+".json", studentJson, 0644)
+
+	if err == nil {
+		return err
+	}
+
+	return nil
+}
+
+func loadStudent(studentID int, collectionPath string) interface{} {
+	var student Student
+	byteValue, err := ioutil.ReadFile(dbPath + collectionPath + strconv.Itoa(studentID) + ".json")
+	if err == nil {
+		return err
+	}
+
+	json.Unmarshal(byteValue, &student)
+	return student
+}

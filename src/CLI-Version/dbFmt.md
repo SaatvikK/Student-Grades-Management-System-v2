@@ -5,6 +5,7 @@ In all collections, JSON files exist called `documents`. The format of the docum
 
 ```
 {
+  "id": int,
   "name": string, // name of student
   "YearGroup": int, //  year group that the student is in
   "age": int, // age of student
@@ -23,17 +24,18 @@ In all collections, JSON files exist called `documents`. The format of the docum
 ```
 
 For example, a 16 year old student called John Doe may be in Year 11 attending Hillside Highschool. Their Physics teacher (id=1234) gave them a grade of 75% - which is an A:
-  `database/hillsideschool/year11/JohnDoe.json`:
+  `database/hillsideschool/year11/1.json`:
     ```
     {
-      "name": "John Doe"
-      "YearGroup": 11
-      "age": 16
+      "id": 1,
+      "name": "John Doe",
+      "YearGroup": 11,
+      "age": 16,
       "subjects": [
         {
-          "SubjectName": "physics"
-          "StudentMark": "75.0"
-          "StudentGrade": "A"
+          "SubjectName": "physics",
+          "StudentMark": "75.0",
+          "StudentGrade": "A",
           "EnteredBy": 1234
         },
         .
