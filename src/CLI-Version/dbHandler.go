@@ -1,15 +1,14 @@
 package cliver
 
 import (
-	"bufio"
+	//"bufio"
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
 	//"os"
 	//"reflect"
-	"strconv"
 	//"strings"
 	//"io"
 	//"log"
@@ -59,4 +58,31 @@ func loadStudent(studentID int, collectionPath string) interface{} {
 
 	json.Unmarshal(byteValue, &student)
 	return student
+}
+
+func createSchoolInDB(schoolID string, name string, noYearGroups int) error {
+	status := createDBFolders("/" + schoolID)
+	if status != nil {
+		return status
+	}
+
+	schoolPath := "/" + schoolID
+	collections := [6]string{"years", "teachers", "SchoolData", "MetaData", "ValidTeachers", "ValidAdmins"}
+
+	for i := 0; i < len(collections); i++ {
+		if collections[i] == "years" {
+			for j := 0; j < noYearGroups+1; j++ {
+				status = createDBFolders(schoolPath + "/year" + strconv.Itoa(j+1))
+				if status != nil {
+					return status
+				}
+			}
+		}
+
+		status = createDBFolders(schoolPath + "/" + collections[i])
+		if status != nil {
+			return status
+		}
+	}
+	return nil
 }
