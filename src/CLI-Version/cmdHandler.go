@@ -38,6 +38,21 @@ func stdInput(reader *bufio.Reader) string {
 }
 
 func cmdHandler(cmd string, reader *bufio.Reader) {
+	switch cmd {
+		case "help":
+			fmt.Println("hai")
+		case "addstudent":
+			addStudentCmd(reader)
+		case "addgrade":
+			addGradeCmd(reader)
+		case "seestudent":
+			seeStudentCmd(reader)
+		case "exit":
+			os.Exit(1)
+		default:
+			println("Unrecognised command, please type `help` for a list of valid commands.")
+	}
+
 	if strings.Compare("help", cmd) == 0 {
 		fmt.Println("hai")
 
@@ -49,7 +64,8 @@ func cmdHandler(cmd string, reader *bufio.Reader) {
 
 	} else if strings.Compare("seestudent", cmd) == 0 {
 		seeStudentCmd(reader)
-
+	
+	} els
 	} else if strings.Compare("exit", cmd) == 0 {
 		os.Exit(1)
 	}
